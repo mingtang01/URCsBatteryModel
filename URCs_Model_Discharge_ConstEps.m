@@ -151,12 +151,13 @@ Dsc = param.Dsc;  % cathode Li diffusivity
 lmssq = param.lmssq(:); % square of the roots of tan(lambda)=lambda; lmssq should be a column vector 
 a_p = 3*(1-epsc)/Rc;  % volumetric particle surface area
 j_in = I./(F*a_p.*Lpz); % Li flux at cathode particle surface 
-tmax = (csmaxc-cs0c)*Rc./(3*j_in); % max time to fully discharge particles in PZ at current density I
+tmaxPZ = (csmaxc-cs0c)*Rc./(3*j_in); % max time to fully discharge particles in PZ at current density I
+tmax0 = tmaxPZ*Lc/Lpz; % nominal time to fully discharge cell assuming all particles are reacting
 % Li surface concentration at cathode particle surface, t should be a scalar or row vector
 csurfc = @(t, j_in) cs0c + j_in.*(3.*t/Rc + Rc./(5*Dsc) - 2*Rc/Dsc.*sum(exp(-lmssq*Dsc*t./Rc^2)./lmssq, 1)); 
 
 % Calculate average Li concentration in cathode particle as a function of Li surface concentration
-tlistcat=linspace(0, tmax, 100);
+tlistcat=linspace(0, tmaxPZ, 100);
 csurfcatlist = csurfc(tlistcat, j_in); 
 t_vs_csurfcat = griddedInterpolant(csurfcatlist, tlistcat, 'linear');
 csmeancat = @(csurf) cs0c + (j_in*3/Rc)*t_vs_csurfcat(csurf); 
@@ -168,7 +169,7 @@ if strcmp(anode_type,'Gr')==1
     % Li surface concentration at anode particle surface
     csurfa = @(t, j_out) cs0a - j_out.*(3.*t/Ra + Ra./(5*Dsa) - 2*Ra/Dsa.*sum(exp(-lmssq*Dsa*t./Ra^2)./lmssq, 1));
     % Calculate average Li concentration in anode particle as a function of Li surface concentration
-    tlistan=linspace(tmax, 0, 100);
+    tlistan=linspace(tmax0, 0, 100);
     csurfanlist = csurfa(tlistan, j_out); 
     t_vs_csurfan = griddedInterpolant(csurfanlist, tlistan, 'linear');
     csmeanan = @(csurf) cs0a - (j_out*3/Ra)*t_vs_csurfan(csurf); 

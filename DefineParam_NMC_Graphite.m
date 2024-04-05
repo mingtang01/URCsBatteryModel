@@ -101,5 +101,5 @@ param.rho_sep = 0.946; % Separator density [g/cm^3]
 
 
 %%% calculate the roots of tan(lm) = lm
-lms = arrayfun( @(lm0) fzero( @(x) tan(x)-x, ([0.4, 0.5-1e-9]+lm0)*pi), 1:20); 
+lms = arrayfun( @(lm0) fzero( @(x) tan(x)-x, ([0.4, 0.5-1e-9]+lm0)*pi), 1:30); 
 param.lmssq = lms.^2;
