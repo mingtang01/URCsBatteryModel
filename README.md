@@ -1,5 +1,5 @@
 # URCsAnalyticalModel
-This repository contains a suite of MATLAB scripts that implement the URCs analytical model for predicting battery discharge performance, which is described in the following paper: "A Fast Analytical Model for Predicting the Rate Performance of Battery Cells Under Mixed Kinetic Control", Hongxuan Wang, Fan Wang, Harsh Agarwal, Ryan Stephens, and Ming Tang
+This repository contains a suite of MATLAB scripts that implement the URCs analytical model for predicting battery discharge performance, which is described in the following paper: "A Fast Analytical Model for Predicting Battery Performance Under Mixed Kinetic Control", Hongxuan Wang, Fan Wang, and Ming Tang
 
 Files in the repository:
 1. "URCs_Model_Discharge_ConstEps.m" calculates the normalized galvanostatic discharge capacity and pseudo-steady-state distribution of salt/electrolyte potential/Li surface concentration of battery cells based on input cell parameters and discharge current density. 
